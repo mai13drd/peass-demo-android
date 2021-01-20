@@ -31,7 +31,7 @@ version=$(cat results/execute_demo-project-android.json | grep "versions" -A 1 |
 echo "Version: $version"
 
 echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
-./peass searchcause -iterations 1 -warmup 0 -repetitions 1 -vms 4 -version $version -test app§demo.App\#test_App -folder $DEMO_HOME -executionfile results/execute_demo-project-android.json
+./peass searchcause -iterations 1 -warmup 0 -repetitions 1 -vms 4 -version $version -test app§com.example.android_example.ExampleUnitTest\#test_TestMe -folder $DEMO_HOME -executionfile results/execute_demo-project-android.json
 
 echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
 ./peass visualizerca -data ../demo-project-android_peass -propertyFolder results/properties_demo-project-android/
@@ -68,7 +68,7 @@ fi
 
 #Check, if a slowdown is detected for App#test
 (
-	state=$(grep -A21 '"call" : "demo.App#test",' results/$version/demo.AppTest_test_App.js | grep '"state" : "SLOWER",' | grep -o 'SLOWER')
+	state=$(grep -A21 '"call" : "com.example.android_example.TestMe#test",' results/$version/com.example.android_example.ExampleUnitTest_test_TestMe.js | grep '"state" : "SLOWER",' | grep -o 'SLOWER')
 	if [ "$state" != "SLOWER" ]
 		then
 			echo "State for demo.App#test in demo.AppTest_test_App.js has not the expected value SLOWER!"
