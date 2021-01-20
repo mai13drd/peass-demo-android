@@ -77,6 +77,6 @@ fi
 			cat results/$version/com.example.android_example.ExampleUnitTest_test_TestMe.js
 			exit 1
 		else
-			echo "Slowdown is detected for App#test."
+			echo "Slowdown is detected for TestMe#test."
 	fi
 ) && true
