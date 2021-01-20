@@ -71,10 +71,10 @@ fi
 	state=$(grep -A21 '"call" : "com.example.android_example.TestMe#test",' results/$version/com.example.android_example.ExampleUnitTest_test_TestMe.js | grep '"state" : "SLOWER",' | grep -o 'SLOWER')
 	if [ "$state" != "SLOWER" ]
 		then
-			echo "State for demo.App#test in demo.AppTest_test_App.js has not the expected value SLOWER!"
+			echo "State for TestMe#test in com.example.android_example.ExampleUnitTest_test_TestMe.js has not the expected value SLOWER!"
 			echo "Found value for state: $state"
-			echo ":::::::::::::::::::AppTest_test_App.js:::::::::::::::::::::"
-			cat results/$version/demo.AppTest_test_App.js
+			echo ":::::::::::::::::::ExampleUnitTest_test_TestMe.js:::::::::::::::::::::"
+			cat results/$version/com.example.android_example.ExampleUnitTest_test_TestMe.js
 			exit 1
 		else
 			echo "Slowdown is detected for App#test."
