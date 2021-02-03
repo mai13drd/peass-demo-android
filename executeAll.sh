@@ -25,6 +25,8 @@ echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
 if [ ! -f results/execute_demo-project-android.json ]
 then
 	cat ../demo-project-android_peass/projectTemp/1_peass/logs/0eda989ac6fdf0db2a496d9f9410759c67f23863/*
+	echo "An error occured; please check the logs above"
+	exit 1
 fi
 
 echo ":::::::::::::::::::::MEASURE::::::::::::::::::::::::::::::::::::::::::"
