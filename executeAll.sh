@@ -40,7 +40,7 @@ version=$(cat results/execute_demo-project-android.json | grep "versions" -A 1 |
 echo "Version: $version"
 
 echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
-./peass searchcause -iterations 5 -warmup 5 -repetitions 1 -vms 2 -version $version -test app§com.example.android_example.ExampleUnitTest\#test_TestMe -folder $DEMO_HOME -executionfile results/execute_demo-project-android.json
+./peass searchcause -iterations 5 -warmup 5 -repetitions 1 -vms 4 -version $version -test app§com.example.android_example.ExampleUnitTest\#test_TestMe -folder $DEMO_HOME -executionfile results/execute_demo-project-android.json
 
 echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
 ./peass visualizerca -data ../demo-project-android_peass -propertyFolder results/properties_demo-project-android/
