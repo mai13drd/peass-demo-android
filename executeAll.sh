@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 
 ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
 if [ -z "$ANDROID_SDK_ROOT" ]
@@ -18,7 +19,13 @@ git clone https://github.com/DaGeRe/peass.git && \
 
 # It is assumed that $DEMO_HOME is set correctly and PeASS has been built!
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
-./peass select -folder $DEMO_HOME
+(
+	./peass select -folder $DEMO_HOME
+) && true
+if [ ! -f results/execute_demo-project-android.json ]
+then
+	cat ../demo-project-android_peass/projectTemp/1_peass/logs/0eda989ac6fdf0db2a496d9f9410759c67f23863/*
+fi
 
 echo ":::::::::::::::::::::MEASURE::::::::::::::::::::::::::::::::::::::::::"
 ./peass measure -executionfile results/execute_demo-project-android.json -folder $DEMO_HOME -iterations 5 -warmup 5 -repetitions 1 -vms 2
