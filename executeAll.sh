@@ -30,29 +30,10 @@ then
 fi
 
 echo ":::::::::::::::::::::MEASURE::::::::::::::::::::::::::::::::::::::::::"
-./peass measure -executionfile results/execute_demo-project-android.json -folder $DEMO_HOME -iterations 5 -warmup 5 -repetitions 1 -vms 2
+./peass measure -executionfile results/execute_demo-project-android.json -folder $DEMO_HOME -iterations 5 -warmup 5 -repetitions 1 -vms 4
 
 echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
 ./peass getchanges -data ../demo-project-android_peass/ -dependencyfile results/deps_demo-project-android.json
-
-# If minor updates to the project occur, the version name may change
-version=$(cat results/execute_demo-project-android.json | grep "versions" -A 1 | grep -v "version" | tr -d "\": {")
-echo "Version: $version"
-
-echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
-./peass searchcause -iterations 5 -warmup 5 -repetitions 1 -vms 4 -version $version -test app§com.example.android_example.ExampleUnitTest\#test_TestMe -folder $DEMO_HOME -executionfile results/execute_demo-project-android.json
-
-echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
-./peass visualizerca -data ../demo-project-android_peass -propertyFolder results/properties_demo-project-android/
-
-echo "::::::::::::::::changes_android-example-correct.json::::::::::::::::::"
-cat results/changes_demo-project-android.json
-
-echo "::::::::::::::::::::android-example-correct.json::::::::::::::::::::::"
-cat results/statistics/demo-project-android.json
-
-echo
-echo
 
 #Check, if changes_demo-project-android.json contains the correct commit-SHA
 cd ../demo-project-android
@@ -74,6 +55,25 @@ cd ../peass
 if [ $? -ne 0 ]
 	then exit 1
 fi
+
+# If minor updates to the project occur, the version name may change
+version=$(cat results/execute_demo-project-android.json | grep "versions" -A 1 | grep -v "version" | tr -d "\": {")
+echo "Version: $version"
+
+echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
+./peass searchcause -iterations 5 -warmup 5 -repetitions 1 -vms 4 -version $version -test app§com.example.android_example.ExampleUnitTest\#test_TestMe -folder $DEMO_HOME -executionfile results/execute_demo-project-android.json
+
+echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
+./peass visualizerca -data ../demo-project-android_peass -propertyFolder results/properties_demo-project-android/
+
+echo "::::::::::::::::changes_android-example-correct.json::::::::::::::::::"
+cat results/changes_demo-project-android.json
+
+echo "::::::::::::::::::::android-example-correct.json::::::::::::::::::::::"
+cat results/statistics/demo-project-android.json
+
+echo
+echo
 
 #Check, if a slowdown is detected for App#test
 (
