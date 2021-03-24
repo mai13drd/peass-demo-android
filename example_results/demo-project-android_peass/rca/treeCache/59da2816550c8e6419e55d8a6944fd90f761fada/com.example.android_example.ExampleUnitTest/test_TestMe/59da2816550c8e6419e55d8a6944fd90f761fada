@@ -1,0 +1,19 @@
+{
+  "call" : "com.example.android_example.ExampleUnitTest#test_TestMe",
+  "kiekerPattern" : "public void com.example.android_example.ExampleUnitTest.test_TestMe()",
+  "otherKiekerPattern" : null,
+  "module" : "app",
+  "children" : [ {
+    "call" : "com.example.android_example.TestMe#<init>",
+    "kiekerPattern" : "public new com.example.android_example.TestMe.<init>()",
+    "otherKiekerPattern" : null,
+    "module" : "app",
+    "children" : [ ]
+  }, {
+    "call" : "com.example.android_example.TestMe#test",
+    "kiekerPattern" : "public int com.example.android_example.TestMe.test()",
+    "otherKiekerPattern" : null,
+    "module" : "app",
+    "children" : [ ]
+  } ]
+}

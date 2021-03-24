@@ -1,0 +1,36 @@
+{
+  "versions" : {
+    "59da2816550c8e6419e55d8a6944fd90f761fada" : {
+      "properties" : {
+        "com.example.android_example.ExampleUnitTest" : [ {
+          "method" : "test_TestMe",
+          "addedMap" : {
+            "for" : 1,
+            "int" : 1
+          },
+          "removedMap" : {
+            "for" : 1,
+            "int" : 1
+          },
+          "oldTime" : 0.0,
+          "changePercent" : 0.0,
+          "calls" : 3,
+          "callsOld" : 3,
+          "affectedClasses" : 0,
+          "affectedLines" : 0,
+          "newLines" : 0,
+          "oldLines" : 0,
+          "diff" : null,
+          "affectsSource" : false,
+          "affectsTestSource" : false,
+          "affectedMethods" : [ ],
+          "types" : [ ],
+          "guessedTypes" : [ ],
+          "traceChangeType" : "NO_CALL_CHANGE"
+        } ]
+      },
+      "commitText" : "Increased iterations in TestMe.test. ",
+      "committer" : "mwilhelmi@gmx.net Matti Wilhelmi"
+    }
+  }
+}
