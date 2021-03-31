@@ -1,0 +1,104 @@
+{
+  "measurementConfig" : {
+    "timeout" : 300000,
+    "vms" : 4,
+    "type1error" : 0.05,
+    "type2error" : 0.01,
+    "version" : "59da2816550c8e6419e55d8a6944fd90f761fada",
+    "versionOld" : "59da2816550c8e6419e55d8a6944fd90f761fada~1",
+    "earlyStop" : false,
+    "warmup" : 5,
+    "iterations" : 5,
+    "repetitions" : 1,
+    "logFullData" : true,
+    "removeSnapshots" : false,
+    "useGC" : false,
+    "useKieker" : true,
+    "useSourceInstrumentation" : false,
+    "useSelectiveInstrumentation" : true,
+    "useSampling" : false,
+    "useCircularQueue" : false,
+    "redirectToNull" : true,
+    "saveAll" : true,
+    "kiekerAggregationInterval" : 5000,
+    "javaVersion" : "1.8.0_282",
+    "record" : "OPERATIONEXECUTION",
+    "measurementStrategy" : "SEQUENTIAL",
+    "statisticsConfig" : {
+      "type1error" : 0.05,
+      "type2error" : 0.01,
+      "outlierFactor" : 3.29,
+      "statisticTest" : "AGNOSTIC_T_TEST"
+    },
+    "executionConfig" : {
+      "includes" : [ ],
+      "timeout" : 300000,
+      "version" : "59da2816550c8e6419e55d8a6944fd90f761fada",
+      "versionOld" : "59da2816550c8e6419e55d8a6944fd90f761fada~1"
+    },
+    "enableAdaptiveConfig" : true,
+    "testGoal" : null,
+    "includes" : [ ]
+  },
+  "causeConfig" : {
+    "useAggregation" : true,
+    "splitAggregated" : true,
+    "minTime" : 0.1,
+    "ignoreEOIs" : true,
+    "rcaStrategy" : "COMPLETE",
+    "testCase" : {
+      "clazz" : "com.example.android_example.ExampleUnitTest",
+      "method" : "test_TestMe",
+      "module" : "app"
+    }
+  },
+  "nodes" : {
+    "call" : "com.example.android_example.ExampleUnitTest#test_TestMe",
+    "kiekerPattern" : "public void com.example.android_example.ExampleUnitTest.test_TestMe()",
+    "otherKiekerPattern" : "public void com.example.android_example.ExampleUnitTest.test_TestMe()",
+    "module" : "app",
+    "statistic" : {
+      "meanOld" : 806.825,
+      "meanCurrent" : 23326.35,
+      "deviationOld" : 92.33953198206429,
+      "deviationCurrent" : 88.33838350343494,
+      "vms" : 4,
+      "callsOld" : 20,
+      "calls" : 20,
+      "tvalue" : -352.44607859145964
+    },
+    "childs" : [ {
+      "call" : "com.example.android_example.TestMe#<init>",
+      "kiekerPattern" : "public new com.example.android_example.TestMe.<init>()",
+      "otherKiekerPattern" : "public new com.example.android_example.TestMe.<init>()",
+      "module" : "app",
+      "statistic" : {
+        "meanOld" : 1.6,
+        "meanCurrent" : 1.325,
+        "deviationOld" : 0.1414213562373096,
+        "deviationCurrent" : 0.15000000000000002,
+        "vms" : 4,
+        "callsOld" : 20,
+        "calls" : 20,
+        "tvalue" : 2.667891875399663
+      },
+      "childs" : [ ]
+    }, {
+      "call" : "com.example.android_example.TestMe#test",
+      "kiekerPattern" : "public int com.example.android_example.TestMe.test()",
+      "otherKiekerPattern" : "public int com.example.android_example.TestMe.test()",
+      "module" : "app",
+      "statistic" : {
+        "meanOld" : 42.125,
+        "meanCurrent" : 22548.425000000003,
+        "deviationOld" : 5.288588343468102,
+        "deviationCurrent" : 145.31986271669987,
+        "vms" : 4,
+        "callsOld" : 20,
+        "calls" : 20,
+        "tvalue" : -309.54351785199776
+      },
+      "childs" : [ ]
+    } ]
+  }
+}

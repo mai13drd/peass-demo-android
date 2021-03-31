@@ -27,13 +27,13 @@ Run `./peass select -folder ../peass-demo-android/demo-project-android/` (takes 
 
 Run `./peass measure -executionfile results/execute_demo-project-android.json -folder ../peass-demo-android/demo-project-android/ -iterations 20 -warmup 20 -repetitions 10 -vms 4` (takes some time) in order to obtain performance measurements. For real examples, higher execution times are needed, but for the demo case, this is sufficient.
 
-Afterwards, run `./peass getchanges -data ../peass-demo-android/demo-project-android_peass/ -dependencyfile results/deps_demo-project-android.json` (takes ~1 second) in order to identify the changes. Now in `results/changes_demo-project-android.json`, all changes are listed. As expected, 7675e29a368e5ac051e76c145e84c80af7ae1e88 contains a change in the test test_TestMe. 
+Afterwards, run `./peass getchanges -data ../peass-demo-android/demo-project-android_peass/ -dependencyfile results/deps_demo-project-android.json` (takes ~1 second) in order to identify the changes. Now in `results/changes_demo-project-android.json`, all changes are listed. As expected, 59da2816550c8e6419e55d8a6944fd90f761fada contains a change in the test test_TestMe.
 
 ## Executing the Root Cause Analysis
 
-Execute `./peass searchcause -iterations 20 -warmup 20 -repetitions 10 -vms 4 -version 7675e29a368e5ac051e76c145e84c80af7ae1e88 -test app§com.example.android_example.ExampleUnitTest\#test_TestMe -folder ../peass-demo-android/demo-project-android/ -executionfile results/execute_demo-project-android.json` (takes some time) in order to get changes.
+Execute `./peass searchcause -iterations 20 -warmup 20 -repetitions 10 -vms 4 -version 59da2816550c8e6419e55d8a6944fd90f761fada -test app§com.example.android_example.ExampleUnitTest\#test_TestMe -folder ../peass-demo-android/demo-project-android/ -executionfile results/execute_demo-project-android.json` (takes some time) in order to get changes.
 
-To finally get the root cause analysis visualization, run `./peass visualizerca -data ../peass-demo-android/demo-project-android_peass/ -propertyFolder results/properties_demo-project-android/`. Now, results/7675e29a368e5ac051e76c145e84c80af7ae1e88 contains the file com.example.android_example.ExampleUnitTest_test_TestMe.html which you can visualize in your browser. You'll see that ExampleUnitTest#test_TestMe and TestMe#test are red - therefore, both have gotten slower and TestMe#test is very likely the root cause of the performance change.
+To finally get the root cause analysis visualization, run `./peass visualizerca -data ../peass-demo-android/demo-project-android_peass/ -propertyFolder results/properties_demo-project-android/`. Now, results/59da2816550c8e6419e55d8a6944fd90f761fada contains the file app$com.example.android_example.ExampleUnitTest_test_TestMe.html which you can visualize in your browser. You'll see that ExampleUnitTest#test_TestMe and TestMe#test are red - therefore, both have gotten slower and TestMe#test is very likely the root cause of the performance change.
 
 ## Spotting Bugs
 

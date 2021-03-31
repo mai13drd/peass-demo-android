@@ -1,0 +1,167 @@
+app§com.example.android_example.ExampleUnitTest#test_TestMe
+@Test
+@de.dagere.kopeme.annotations.PerformanceTest(iterations = 1, warmup = 0, logFullData = true, useKieker = true, timeout = 300000, repetitions = 1, redirectToNull = true, dataCollectors = "ONLYTIME")
+public void test_TestMe() {
+    final String _kieker_sourceInstrumentation_signature = "public void com.example.android_example.ExampleUnitTest.test_TestMe()";
+    ;
+    // collect data
+    final boolean _kieker_sourceInstrumentation_entrypoint;
+    final String _kieker_sourceInstrumentation_hostname = MonitoringController.getInstance().getHostname();
+    final String _kieker_sourceInstrumentation_sessionId = SessionRegistry.INSTANCE.recallThreadLocalSessionId();
+    // this is executionOrderIndex-th execution in this trace
+    final int _kieker_sourceInstrumentation_eoi;
+    // this is the height in the dynamic call tree of this execution
+    final int _kieker_sourceInstrumentation_ess;
+    // traceId, -1 if entry point
+    long _kieker_sourceInstrumentation_traceId = ControlFlowRegistry.INSTANCE.recallThreadLocalTraceId();
+    if (_kieker_sourceInstrumentation_traceId == -1) {
+        _kieker_sourceInstrumentation_entrypoint = true;
+        _kieker_sourceInstrumentation_traceId = ControlFlowRegistry.INSTANCE.getAndStoreUniqueThreadLocalTraceId();
+        ControlFlowRegistry.INSTANCE.storeThreadLocalEOI(0);
+        // next operation is ess + 1
+        ControlFlowRegistry.INSTANCE.storeThreadLocalESS(1);
+        _kieker_sourceInstrumentation_eoi = 0;
+        _kieker_sourceInstrumentation_ess = 0;
+    } else {
+        _kieker_sourceInstrumentation_entrypoint = false;
+        // ess > 1
+        _kieker_sourceInstrumentation_eoi = ControlFlowRegistry.INSTANCE.incrementAndRecallThreadLocalEOI();
+        // ess >= 0
+        _kieker_sourceInstrumentation_ess = ControlFlowRegistry.INSTANCE.recallAndIncrementThreadLocalESS();
+        if ((_kieker_sourceInstrumentation_eoi == -1) || (_kieker_sourceInstrumentation_ess == -1)) {
+            System.err.println("eoi and/or ess have invalid values: eoi == {} ess == {}" + _kieker_sourceInstrumentation_eoi + "" + _kieker_sourceInstrumentation_ess);
+            MonitoringController.getInstance().terminateMonitoring();
+        }
+    }
+    // measure before
+    final long _kieker_sourceInstrumentation_tin = MonitoringController.getInstance().getTimeSource().getTime();
+    ;
+    try {
+        TestMe t = new TestMe();
+        // t.test() always returns 1, test will always pass
+        Assert.assertNotEquals(0, t.test());
+    } finally {
+        // measure after
+        final long _kieker_sourceInstrumentation_tout = MonitoringController.getInstance().getTimeSource().getTime();
+        MonitoringController.getInstance().newMonitoringRecord(new OperationExecutionRecord(_kieker_sourceInstrumentation_signature, _kieker_sourceInstrumentation_sessionId, _kieker_sourceInstrumentation_traceId, _kieker_sourceInstrumentation_tin, _kieker_sourceInstrumentation_tout, _kieker_sourceInstrumentation_hostname, _kieker_sourceInstrumentation_eoi, _kieker_sourceInstrumentation_ess));
+        // cleanup
+        if (_kieker_sourceInstrumentation_entrypoint) {
+            ControlFlowRegistry.INSTANCE.unsetThreadLocalTraceId();
+            ControlFlowRegistry.INSTANCE.unsetThreadLocalEOI();
+            ControlFlowRegistry.INSTANCE.unsetThreadLocalESS();
+        } else {
+            // next operation is ess
+            ControlFlowRegistry.INSTANCE.storeThreadLocalESS(_kieker_sourceInstrumentation_ess);
+        }
+        ;
+    }
+}
+app§com.example.android_example.TestMe#<init>
+public TestMe() {
+    final String _kieker_sourceInstrumentation_signature = "public new com.example.android_example.TestMe.<init>()";
+    ;
+    // collect data
+    final boolean _kieker_sourceInstrumentation_entrypoint;
+    final String _kieker_sourceInstrumentation_hostname = MonitoringController.getInstance().getHostname();
+    final String _kieker_sourceInstrumentation_sessionId = SessionRegistry.INSTANCE.recallThreadLocalSessionId();
+    // this is executionOrderIndex-th execution in this trace
+    final int _kieker_sourceInstrumentation_eoi;
+    // this is the height in the dynamic call tree of this execution
+    final int _kieker_sourceInstrumentation_ess;
+    // traceId, -1 if entry point
+    long _kieker_sourceInstrumentation_traceId = ControlFlowRegistry.INSTANCE.recallThreadLocalTraceId();
+    if (_kieker_sourceInstrumentation_traceId == -1) {
+        _kieker_sourceInstrumentation_entrypoint = true;
+        _kieker_sourceInstrumentation_traceId = ControlFlowRegistry.INSTANCE.getAndStoreUniqueThreadLocalTraceId();
+        ControlFlowRegistry.INSTANCE.storeThreadLocalEOI(0);
+        // next operation is ess + 1
+        ControlFlowRegistry.INSTANCE.storeThreadLocalESS(1);
+        _kieker_sourceInstrumentation_eoi = 0;
+        _kieker_sourceInstrumentation_ess = 0;
+    } else {
+        _kieker_sourceInstrumentation_entrypoint = false;
+        // ess > 1
+        _kieker_sourceInstrumentation_eoi = ControlFlowRegistry.INSTANCE.incrementAndRecallThreadLocalEOI();
+        // ess >= 0
+        _kieker_sourceInstrumentation_ess = ControlFlowRegistry.INSTANCE.recallAndIncrementThreadLocalESS();
+        if ((_kieker_sourceInstrumentation_eoi == -1) || (_kieker_sourceInstrumentation_ess == -1)) {
+            System.err.println("eoi and/or ess have invalid values: eoi == {} ess == {}" + _kieker_sourceInstrumentation_eoi + "" + _kieker_sourceInstrumentation_ess);
+            MonitoringController.getInstance().terminateMonitoring();
+        }
+    }
+    // measure before
+    final long _kieker_sourceInstrumentation_tin = MonitoringController.getInstance().getTimeSource().getTime();
+    ;
+    // measure after
+    final long _kieker_sourceInstrumentation_tout = MonitoringController.getInstance().getTimeSource().getTime();
+    MonitoringController.getInstance().newMonitoringRecord(new OperationExecutionRecord(_kieker_sourceInstrumentation_signature, _kieker_sourceInstrumentation_sessionId, _kieker_sourceInstrumentation_traceId, _kieker_sourceInstrumentation_tin, _kieker_sourceInstrumentation_tout, _kieker_sourceInstrumentation_hostname, _kieker_sourceInstrumentation_eoi, _kieker_sourceInstrumentation_ess));
+    // cleanup
+    if (_kieker_sourceInstrumentation_entrypoint) {
+        ControlFlowRegistry.INSTANCE.unsetThreadLocalTraceId();
+        ControlFlowRegistry.INSTANCE.unsetThreadLocalEOI();
+        ControlFlowRegistry.INSTANCE.unsetThreadLocalESS();
+    } else {
+        // next operation is ess
+        ControlFlowRegistry.INSTANCE.storeThreadLocalESS(_kieker_sourceInstrumentation_ess);
+    }
+    ;
+}
+app§com.example.android_example.TestMe#test
+// will always return 1
+public int test() {
+    final String _kieker_sourceInstrumentation_signature = "public int com.example.android_example.TestMe.test()";
+    ;
+    // collect data
+    final boolean _kieker_sourceInstrumentation_entrypoint;
+    final String _kieker_sourceInstrumentation_hostname = MonitoringController.getInstance().getHostname();
+    final String _kieker_sourceInstrumentation_sessionId = SessionRegistry.INSTANCE.recallThreadLocalSessionId();
+    // this is executionOrderIndex-th execution in this trace
+    final int _kieker_sourceInstrumentation_eoi;
+    // this is the height in the dynamic call tree of this execution
+    final int _kieker_sourceInstrumentation_ess;
+    // traceId, -1 if entry point
+    long _kieker_sourceInstrumentation_traceId = ControlFlowRegistry.INSTANCE.recallThreadLocalTraceId();
+    if (_kieker_sourceInstrumentation_traceId == -1) {
+        _kieker_sourceInstrumentation_entrypoint = true;
+        _kieker_sourceInstrumentation_traceId = ControlFlowRegistry.INSTANCE.getAndStoreUniqueThreadLocalTraceId();
+        ControlFlowRegistry.INSTANCE.storeThreadLocalEOI(0);
+        // next operation is ess + 1
+        ControlFlowRegistry.INSTANCE.storeThreadLocalESS(1);
+        _kieker_sourceInstrumentation_eoi = 0;
+        _kieker_sourceInstrumentation_ess = 0;
+    } else {
+        _kieker_sourceInstrumentation_entrypoint = false;
+        // ess > 1
+        _kieker_sourceInstrumentation_eoi = ControlFlowRegistry.INSTANCE.incrementAndRecallThreadLocalEOI();
+        // ess >= 0
+        _kieker_sourceInstrumentation_ess = ControlFlowRegistry.INSTANCE.recallAndIncrementThreadLocalESS();
+        if ((_kieker_sourceInstrumentation_eoi == -1) || (_kieker_sourceInstrumentation_ess == -1)) {
+            System.err.println("eoi and/or ess have invalid values: eoi == {} ess == {}" + _kieker_sourceInstrumentation_eoi + "" + _kieker_sourceInstrumentation_ess);
+            MonitoringController.getInstance().terminateMonitoring();
+        }
+    }
+    // measure before
+    final long _kieker_sourceInstrumentation_tin = MonitoringController.getInstance().getTimeSource().getTime();
+    ;
+    try {
+        int tmp = 2;
+        for (int i = 0; i < 70000000; i++) {
+            tmp += i ^ i;
+        }
+        return tmp;
+    } finally {
+        // measure after
+        final long _kieker_sourceInstrumentation_tout = MonitoringController.getInstance().getTimeSource().getTime();
+        MonitoringController.getInstance().newMonitoringRecord(new OperationExecutionRecord(_kieker_sourceInstrumentation_signature, _kieker_sourceInstrumentation_sessionId, _kieker_sourceInstrumentation_traceId, _kieker_sourceInstrumentation_tin, _kieker_sourceInstrumentation_tout, _kieker_sourceInstrumentation_hostname, _kieker_sourceInstrumentation_eoi, _kieker_sourceInstrumentation_ess));
+        // cleanup
+        if (_kieker_sourceInstrumentation_entrypoint) {
+            ControlFlowRegistry.INSTANCE.unsetThreadLocalTraceId();
+            ControlFlowRegistry.INSTANCE.unsetThreadLocalEOI();
+            ControlFlowRegistry.INSTANCE.unsetThreadLocalESS();
+        } else {
+            // next operation is ess
+            ControlFlowRegistry.INSTANCE.storeThreadLocalESS(_kieker_sourceInstrumentation_ess);
+        }
+        ;
+    }
+}

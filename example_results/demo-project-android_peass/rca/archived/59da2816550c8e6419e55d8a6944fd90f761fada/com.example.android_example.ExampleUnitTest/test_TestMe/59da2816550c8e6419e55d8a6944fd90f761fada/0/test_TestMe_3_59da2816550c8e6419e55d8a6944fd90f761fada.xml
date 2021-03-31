@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<kopemedata>
+ <testcases class="com.example.android_example.ExampleUnitTest">
+  <testcase name="test_TestMe">
+   <datacollector name="de.dagere.kopeme.datacollection.TimeDataCollectorNoGC">
+    <result cpu="model name : Intel(R) Core(TM) i7-2760QM CPU @ 2.40GHz" memory="MemTotal:8028180 kB" date="1616567885578">
+     <value>2.18122078E7</value>
+     <deviation>0.019430196755254012</deviation>
+     <warmupExecutions>0</warmupExecutions>
+     <executionTimes>0</executionTimes>
+     <warmup>5</warmup>
+     <iterations>5</iterations>
+     <repetitions>1</repetitions>
+     <min>2.1518294E7</min>
+     <max>2.2554382E7</max>
+     <showStart>false</showStart>
+     <executeBeforeClassInMeasurement>false</executeBeforeClassInMeasurement>
+     <redirectToTemp>false</redirectToTemp>
+     <redirectToNull>true</redirectToNull>
+     <javaVersion>1.8.0_282</javaVersion>
+     <fulldata>
+      <value start="1616567885289">22554382</value>
+      <value start="1616567885312">21565688</value>
+      <value start="1616567885334">21518294</value>
+      <value start="1616567885355">21719962</value>
+      <value start="1616567885377">21702713</value>
+     </fulldata>
+    </result>
+   </datacollector>
+  </testcase>
+ </testcases>
+</kopemedata>
