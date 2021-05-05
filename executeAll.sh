@@ -15,7 +15,7 @@ tar -xf demo-project-android.tar.xz
 git clone https://github.com/DaGeRe/peass.git && \
 	cd peass && \
 	DEMO_HOME=$(pwd)/../demo-project-android && \
-	mvn clean install -DskipTests=true -V
+	./mvnw clean install -DskipTests=true -V
 
 # It is assumed that $DEMO_HOME is set correctly and PeASS has been built!
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
