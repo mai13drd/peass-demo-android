@@ -57,7 +57,7 @@ if [ $? -ne 0 ]
 fi
 
 # If minor updates to the project occur, the version name may change
-version=$(cat results/execute_demo-project-android.json | grep "versions" -A 1 | grep -v "version" | tr -d "\": {")
+version=$(cat results/execute_demo-project-android.json | grep "versions" -A 4 | tail -n 1 | tr -d "\": {")
 echo "Version: $version"
 
 echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
