@@ -1,6 +1,4 @@
 #!/bin/bash
-set -e
-set -x
 
 ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
 if [ -z "$ANDROID_SDK_ROOT" ]
