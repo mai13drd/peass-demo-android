@@ -1,6 +1,4 @@
 #!/bin/bash
-set -e
-set -x
 
 ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
 if [ -z "$ANDROID_SDK_ROOT" ]
@@ -14,8 +12,9 @@ fi
 tar -xf demo-project-android.tar.xz
 git clone https://github.com/DaGeRe/peass.git && \
 	cd peass && \
-	DEMO_HOME=$(pwd)/../demo-project-android && \
 	./mvnw clean install -DskipTests=true -V
+
+DEMO_HOME=$(pwd)/../demo-project-android
 
 # It is assumed that $DEMO_HOME is set correctly and PeASS has been built!
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
@@ -57,7 +56,7 @@ if [ $? -ne 0 ]
 fi
 
 # If minor updates to the project occur, the version name may change
-version=$(cat results/execute_demo-project-android.json | grep "versions" -A 4 | tail -n 1 | tr -d "\": {")
+version=$(cat results/execute_demo-project-android.json | grep '"testcases" :' -B 1 | head -n 1 | tr -d "\": {")
 echo "Version: $version"
 
 echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
