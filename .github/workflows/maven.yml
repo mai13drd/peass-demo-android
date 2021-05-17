@@ -5,11 +5,13 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ main ]
   pull_request:
-    branches: [ develop ]
+    branches: [ main ]
   workflow_dispatch:
-    branches: [ develop ]
+    branches: [ main ]
+  schedule:
+    - cron: "0 */8 * * *"
 
 jobs:
   build:
