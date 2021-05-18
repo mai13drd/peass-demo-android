@@ -9,12 +9,21 @@ else
     echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
 fi
 
-tar -xf demo-project-android.tar.xz
+DEMO_PROJECT_NAME=demo-project-android
+
+tar -xf "$DEMO_PROJECT_NAME".tar.xz
 git clone https://github.com/DaGeRe/peass.git && \
 	cd peass && \
 	./mvnw clean install -DskipTests=true -V
 
-DEMO_HOME=$(pwd)/../demo-project-android
+DEMO_HOME=$(pwd)/../$DEMO_PROJECT_NAME
+DEMO_PROJECT_PEASS=../"$DEMO_PROJECT_NAME"_peass
+EXECUTION_FILE=results/execute_"$DEMO_PROJECT_NAME".json
+DEPENDENCY_FILE=results/deps_"$DEMO_PROJECT_NAME".json
+CHANGES_DEMO_PROJECT=results/changes_"$DEMO_PROJECT_NAME".json
+PROPERTY_FOLDER=results/properties_"$DEMO_PROJECT_NAME"/
+
+RIGHT_SHA="$(cd "$DEMO_HOME" && git rev-parse HEAD)"
 
 # It is assumed that $DEMO_HOME is set correctly and PeASS has been built!
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
