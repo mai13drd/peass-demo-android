@@ -68,13 +68,12 @@ echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
 ./peass visualizerca -data $DEMO_PROJECT_PEASS -propertyFolder $PROPERTY_FOLDER
 
 #Check, if a slowdown is detected for App#test
-state=$(grep -A21 '"call" : "com.example.android_example.TestMe#test",' results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js | grep '"state" : "SLOWER",' | grep -o 'SLOWER')
-
-if [ "$state" != "SLOWER" ]
+STATE=$(grep -A21 '"call" : "com.example.android_example.TestMe#test",' results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js \
+    | grep '"state" : "SLOWER",' \
+    | grep -o 'SLOWER')
+if [ "$STATE" != "SLOWER" ]
 then
-    echo "State for TestMe#test in com.example.android_example.ExampleUnitTest_test_TestMe.js has not the expected value SLOWER!"
-    echo "Found value for state: $state"
-    echo ":::::::::::::::::::ExampleUnitTest_test_TestMe.js:::::::::::::::::::::"
+    echo "State for TestMe#test in com.example.android_example.ExampleUnitTest_test_TestMe.js has not the expected value SLOWER, but was $STATE!"
     cat results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js
     exit 1
 else
