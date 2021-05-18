@@ -43,20 +43,15 @@ echo ":::::::::::::::::::::MEASURE::::::::::::::::::::::::::::::::::::::::::"
 echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
 ./peass getchanges -data $DEMO_PROJECT_PEASS -dependencyfile $DEPENDENCY_FILE
 
-#Check, if changes_demo-project-android.json contains the correct commit-SHA
-cd ../demo-project-android
-right_sha="$(git rev-parse HEAD)"
-cd ../peass
-test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo-project-android.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
-
-if [ "$right_sha" != "$test_sha" ]
+#Check, if $CHANGES_DEMO_PROJECT contains the correct commit-SHA
+TEST_SHA=$(grep -A1 'versionChanges" : {' $CHANGES_DEMO_PROJECT | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
+if [ "$RIGHT_SHA" != "$TEST_SHA" ]
 then
-    echo "commit-SHA is not equal to the SHA in changes_demo-project-android.json!"
-    echo "Found commit-SHA: $right_sha"
-    echo "Found SHA in json-file: $test_sha"
+    echo "commit-SHA is not equal to the SHA in $CHANGES_DEMO_PROJECT"
+    cat results/statistics/"$DEMO_PROJECT_NAME".json
     exit 1
 else
-    echo "changes_demo-project-android.json contains the correct commit-SHA."
+    echo "$CHANGES_DEMO_PROJECT contains the correct commit-SHA."
 fi
 
 # If minor updates to the project occur, the version name may change
