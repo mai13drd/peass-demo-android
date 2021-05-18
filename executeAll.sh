@@ -67,15 +67,6 @@ echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
 echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
 ./peass visualizerca -data $DEMO_PROJECT_PEASS -propertyFolder $PROPERTY_FOLDER
 
-echo "::::::::::::::::changes_android-example-correct.json::::::::::::::::::"
-cat results/changes_demo-project-android.json
-
-echo "::::::::::::::::::::android-example-correct.json::::::::::::::::::::::"
-cat results/statistics/demo-project-android.json
-
-echo
-echo
-
 #Check, if a slowdown is detected for App#test
 state=$(grep -A21 '"call" : "com.example.android_example.TestMe#test",' results/$version/app§com.example.android_example.ExampleUnitTest_test_TestMe.js | grep '"state" : "SLOWER",' | grep -o 'SLOWER')
 
