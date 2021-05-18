@@ -2,11 +2,11 @@
 
 ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
 if [ -z "$ANDROID_SDK_ROOT" ]
-	then
-		echo "ANDROID_SDK_ROOT is not set!"
-		exit 1
-	else
-		echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+then
+    echo "ANDROID_SDK_ROOT is not set!"
+    exit 1
+else
+    echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
 fi
 
 tar -xf demo-project-android.tar.xz
@@ -18,9 +18,8 @@ DEMO_HOME=$(pwd)/../demo-project-android
 
 # It is assumed that $DEMO_HOME is set correctly and PeASS has been built!
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
-(
-	./peass select -folder $DEMO_HOME
-) && true
+./peass select -folder $DEMO_HOME
+
 if [ ! -f results/execute_demo-project-android.json ]
 then
 	cat ../demo-project-android_peass/projectTemp/1_peass/logs/0eda989ac6fdf0db2a496d9f9410759c67f23863/*
@@ -38,21 +37,16 @@ echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
 cd ../demo-project-android
 right_sha="$(git rev-parse HEAD)"
 cd ../peass
-(
-	test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo-project-android.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
-	if [ "$right_sha" != "$test_sha" ]
-		then
-			echo "commit-SHA is not equal to the SHA in changes_demo-project-android.json!"
-			echo "Found commit-SHA: $right_sha"
-			echo "Found SHA in json-file: $test_sha"
-			exit 1
-		else
-			echo "changes_demo-project-android.json contains the correct commit-SHA."
-	fi
-) && true
+test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo-project-android.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
 
-if [ $? -ne 0 ]
-	then exit 1
+if [ "$right_sha" != "$test_sha" ]
+then
+    echo "commit-SHA is not equal to the SHA in changes_demo-project-android.json!"
+    echo "Found commit-SHA: $right_sha"
+    echo "Found SHA in json-file: $test_sha"
+    exit 1
+else
+    echo "changes_demo-project-android.json contains the correct commit-SHA."
 fi
 
 # If minor updates to the project occur, the version name may change
@@ -75,16 +69,15 @@ echo
 echo
 
 #Check, if a slowdown is detected for App#test
-(
-	state=$(grep -A21 '"call" : "com.example.android_example.TestMe#test",' results/$version/app§com.example.android_example.ExampleUnitTest_test_TestMe.js | grep '"state" : "SLOWER",' | grep -o 'SLOWER')
-	if [ "$state" != "SLOWER" ]
-		then
-			echo "State for TestMe#test in com.example.android_example.ExampleUnitTest_test_TestMe.js has not the expected value SLOWER!"
-			echo "Found value for state: $state"
-			echo ":::::::::::::::::::ExampleUnitTest_test_TestMe.js:::::::::::::::::::::"
-			cat results/$version/app§com.example.android_example.ExampleUnitTest_test_TestMe.js
-			exit 1
-		else
-			echo "Slowdown is detected for TestMe#test."
-	fi
-) && true
+state=$(grep -A21 '"call" : "com.example.android_example.TestMe#test",' results/$version/app§com.example.android_example.ExampleUnitTest_test_TestMe.js | grep '"state" : "SLOWER",' | grep -o 'SLOWER')
+
+if [ "$state" != "SLOWER" ]
+then
+    echo "State for TestMe#test in com.example.android_example.ExampleUnitTest_test_TestMe.js has not the expected value SLOWER!"
+    echo "Found value for state: $state"
+    echo ":::::::::::::::::::ExampleUnitTest_test_TestMe.js:::::::::::::::::::::"
+    cat results/$version/app§com.example.android_example.ExampleUnitTest_test_TestMe.js
+    exit 1
+else
+    echo "Slowdown is detected for TestMe#test."
+fi
