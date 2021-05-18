@@ -29,18 +29,19 @@ RIGHT_SHA="$(cd "$DEMO_HOME" && git rev-parse HEAD)"
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
 ./peass select -folder $DEMO_HOME
 
-if [ ! -f results/execute_demo-project-android.json ]
+if [ ! -f "$EXECUTION_FILE" ]
 then
-	cat ../demo-project-android_peass/projectTemp/1_peass/logs/0eda989ac6fdf0db2a496d9f9410759c67f23863/*
-	echo "An error occured; please check the logs above"
+    echo "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+    echo "$EXECUTION_FILE could not be found!"
+    echo "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
 	exit 1
 fi
 
 echo ":::::::::::::::::::::MEASURE::::::::::::::::::::::::::::::::::::::::::"
-./peass measure -executionfile results/execute_demo-project-android.json -folder $DEMO_HOME -iterations 5 -warmup 5 -repetitions 1 -vms 4
+./peass measure -executionfile $EXECUTION_FILE -folder $DEMO_HOME -iterations 5 -warmup 5 -repetitions 1 -vms 4
 
 echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
-./peass getchanges -data ../demo-project-android_peass/ -dependencyfile results/deps_demo-project-android.json
+./peass getchanges -data $DEMO_PROJECT_PEASS -dependencyfile $DEPENDENCY_FILE
 
 #Check, if changes_demo-project-android.json contains the correct commit-SHA
 cd ../demo-project-android
