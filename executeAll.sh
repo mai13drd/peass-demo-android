@@ -55,14 +55,17 @@ else
 fi
 
 # If minor updates to the project occur, the version name may change
-version=$(cat results/execute_demo-project-android.json | grep '"testcases" :' -B 1 | head -n 1 | tr -d "\": {")
-echo "Version: $version"
+VERSION=$(cat $EXECUTION_FILE | grep '"testcases" :' -B 1 | head -n 1 | tr -d "\": {")
+echo "VERSION: $VERSION"
 
 echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
-./peass searchcause -iterations 5 -warmup 5 -repetitions 1 -vms 4 -version $version -test app§com.example.android_example.ExampleUnitTest\#test_TestMe -folder $DEMO_HOME -executionfile results/execute_demo-project-android.json
+./peass searchcause -iterations 5 -warmup 5 -repetitions 1 -vms 4 -version $VERSION \
+    -test app§com.example.android_example.ExampleUnitTest\#test_TestMe \
+    -folder $DEMO_HOME \
+    -executionfile $EXECUTION_FILE
 
 echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
-./peass visualizerca -data ../demo-project-android_peass -propertyFolder results/properties_demo-project-android/
+./peass visualizerca -data $DEMO_PROJECT_PEASS -propertyFolder $PROPERTY_FOLDER
 
 echo "::::::::::::::::changes_android-example-correct.json::::::::::::::::::"
 cat results/changes_demo-project-android.json
