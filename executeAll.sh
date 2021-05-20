@@ -2,89 +2,91 @@
 
 ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
 if [ -z "$ANDROID_SDK_ROOT" ]
-	then
-		echo "ANDROID_SDK_ROOT is not set!"
-		exit 1
-	else
-		echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+then
+    echo "ANDROID_SDK_ROOT is not set!"
+    exit 1
+else
+    echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
 fi
 
-tar -xf demo-project-android.tar.xz
+DEMO_PROJECT_NAME=demo-project-android
+
+tar -xf "$DEMO_PROJECT_NAME".tar.xz
 git clone https://github.com/DaGeRe/peass.git && \
 	cd peass && \
 	./mvnw clean install -DskipTests=true -V
 
-DEMO_HOME=$(pwd)/../demo-project-android
+DEMO_HOME=$(pwd)/../$DEMO_PROJECT_NAME
+DEMO_PROJECT_PEASS=../"$DEMO_PROJECT_NAME"_peass
+EXECUTION_FILE=results/execute_"$DEMO_PROJECT_NAME".json
+DEPENDENCY_FILE=results/deps_"$DEMO_PROJECT_NAME".json
+CHANGES_DEMO_PROJECT=results/changes_"$DEMO_PROJECT_NAME".json
+PROPERTY_FOLDER=results/properties_"$DEMO_PROJECT_NAME"/
+
+RIGHT_SHA="$(cd "$DEMO_HOME" && git rev-parse HEAD)"
 
 # It is assumed that $DEMO_HOME is set correctly and PeASS has been built!
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
-(
-	./peass select -folder $DEMO_HOME
-) && true
-if [ ! -f results/execute_demo-project-android.json ]
+./peass select -folder $DEMO_HOME
+
+if [ ! -f "$EXECUTION_FILE" ]
 then
-	cat ../demo-project-android_peass/projectTemp/1_peass/logs/0eda989ac6fdf0db2a496d9f9410759c67f23863/*
-	echo "An error occured; please check the logs above"
+    echo "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+    echo "$EXECUTION_FILE could not be found!"
+    echo "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
 	exit 1
 fi
 
 echo ":::::::::::::::::::::MEASURE::::::::::::::::::::::::::::::::::::::::::"
-./peass measure -executionfile results/execute_demo-project-android.json -folder $DEMO_HOME -iterations 5 -warmup 5 -repetitions 1 -vms 4
+./peass measure -executionfile $EXECUTION_FILE -folder $DEMO_HOME -iterations 5 -warmup 5 -repetitions 1 -vms 4
 
 echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
-./peass getchanges -data ../demo-project-android_peass/ -dependencyfile results/deps_demo-project-android.json
+./peass getchanges -data $DEMO_PROJECT_PEASS -dependencyfile $DEPENDENCY_FILE
 
-#Check, if changes_demo-project-android.json contains the correct commit-SHA
-cd ../demo-project-android
-right_sha="$(git rev-parse HEAD)"
-cd ../peass
-(
-	test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo-project-android.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
-	if [ "$right_sha" != "$test_sha" ]
-		then
-			echo "commit-SHA is not equal to the SHA in changes_demo-project-android.json!"
-			echo "Found commit-SHA: $right_sha"
-			echo "Found SHA in json-file: $test_sha"
-			exit 1
-		else
-			echo "changes_demo-project-android.json contains the correct commit-SHA."
-	fi
-) && true
-
-if [ $? -ne 0 ]
-	then exit 1
+#Check, if $CHANGES_DEMO_PROJECT contains the correct commit-SHA
+TEST_SHA=$(grep -A1 'versionChanges" : {' $CHANGES_DEMO_PROJECT | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
+if [ "$RIGHT_SHA" != "$TEST_SHA" ]
+then
+    echo "commit-SHA is not equal to the SHA in $CHANGES_DEMO_PROJECT"
+    cat results/statistics/"$DEMO_PROJECT_NAME".json
+    exit 1
+else
+    echo "$CHANGES_DEMO_PROJECT contains the correct commit-SHA."
 fi
 
 # If minor updates to the project occur, the version name may change
-version=$(cat results/execute_demo-project-android.json | grep '"testcases" :' -B 1 | head -n 1 | tr -d "\": {")
-echo "Version: $version"
+VERSION=$(cat $EXECUTION_FILE | grep '"testcases" :' -B 1 | head -n 1 | tr -d "\": {")
+echo "VERSION: $VERSION"
 
 echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
-./peass searchcause -iterations 5 -warmup 5 -repetitions 1 -vms 4 -version $version -test app§com.example.android_example.ExampleUnitTest\#test_TestMe -folder $DEMO_HOME -executionfile results/execute_demo-project-android.json
+./peass searchcause -iterations 5 -warmup 5 -repetitions 1 -vms 4 -version $VERSION \
+    -test app§com.example.android_example.ExampleUnitTest\#test_TestMe \
+    -folder $DEMO_HOME \
+    -executionfile $EXECUTION_FILE
 
 echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
-./peass visualizerca -data ../demo-project-android_peass -propertyFolder results/properties_demo-project-android/
+./peass visualizerca -data $DEMO_PROJECT_PEASS -propertyFolder $PROPERTY_FOLDER
 
-echo "::::::::::::::::changes_android-example-correct.json::::::::::::::::::"
-cat results/changes_demo-project-android.json
+#Check, if a slowdown is detected for TestMe#callTestmethod
+STATE=$(grep -A21 '"call" : "com.example.android_example.TestMe#callTestmethod",' results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js \
+    | grep '"state" : "SLOWER",' \
+    | grep -o 'SLOWER')
+if [ "$STATE" != "SLOWER" ]
+then
+    echo "State for TestMe#callTestmethod in com.example.android_example.ExampleUnitTest_test_TestMe.js has not the expected value SLOWER, but was $STATE!"
+    cat results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js
+    exit 1
+else
+    echo "Slowdown is detected for TestMe#callTestmethod."
+fi
 
-echo "::::::::::::::::::::android-example-correct.json::::::::::::::::::::::"
-cat results/statistics/demo-project-android.json
-
-echo
-echo
-
-#Check, if a slowdown is detected for App#test
-(
-	state=$(grep -A21 '"call" : "com.example.android_example.TestMe#test",' results/$version/app§com.example.android_example.ExampleUnitTest_test_TestMe.js | grep '"state" : "SLOWER",' | grep -o 'SLOWER')
-	if [ "$state" != "SLOWER" ]
-		then
-			echo "State for TestMe#test in com.example.android_example.ExampleUnitTest_test_TestMe.js has not the expected value SLOWER!"
-			echo "Found value for state: $state"
-			echo ":::::::::::::::::::ExampleUnitTest_test_TestMe.js:::::::::::::::::::::"
-			cat results/$version/app§com.example.android_example.ExampleUnitTest_test_TestMe.js
-			exit 1
-		else
-			echo "Slowdown is detected for TestMe#test."
-	fi
-) && true
+SOURCE_METHOD_LINE=$(grep "TestMe.callTestmethod_" results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js -A 3 | head -n 3 | grep testMethod)
+if [[ "$SOURCE_METHOD_LINE" != *"testMethod();" ]]
+then
+    echo "Line could not be detected - source reading probably failed."
+    echo "Line: "
+    echo "SOURCE_METHOD_LINE: $SOURCE_METHOD_LINE"
+    exit 1
+else
+    echo "SOURCE_METHOD_LINE is correct."
+fi
