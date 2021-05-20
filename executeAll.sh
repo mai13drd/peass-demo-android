@@ -79,3 +79,14 @@ then
 else
     echo "Slowdown is detected for TestMe#callTestmethod."
 fi
+
+SOURCE_METHOD_LINE=$(grep "TestMe.callTestmethod_" results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js -A 3 | head -n 3 | grep testMethod)
+if [[ "$SOURCE_METHOD_LINE" != *"testMethod();" ]]
+then
+    echo "Line could not be detected - source reading probably failed."
+    echo "Line: "
+    echo "SOURCE_METHOD_LINE: $SOURCE_METHOD_LINE"
+    exit 1
+else
+    echo "SOURCE_METHOD_LINE is correct."
+fi
