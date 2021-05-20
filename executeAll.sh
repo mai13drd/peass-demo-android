@@ -67,15 +67,15 @@ echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
 echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
 ./peass visualizerca -data $DEMO_PROJECT_PEASS -propertyFolder $PROPERTY_FOLDER
 
-#Check, if a slowdown is detected for App#test
-STATE=$(grep -A21 '"call" : "com.example.android_example.TestMe#test",' results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js \
+#Check, if a slowdown is detected for TestMe#callTestmethod
+STATE=$(grep -A21 '"call" : "com.example.android_example.TestMe#callTestmethod",' results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js \
     | grep '"state" : "SLOWER",' \
     | grep -o 'SLOWER')
 if [ "$STATE" != "SLOWER" ]
 then
-    echo "State for TestMe#test in com.example.android_example.ExampleUnitTest_test_TestMe.js has not the expected value SLOWER, but was $STATE!"
+    echo "State for TestMe#callTestmethod in com.example.android_example.ExampleUnitTest_test_TestMe.js has not the expected value SLOWER, but was $STATE!"
     cat results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js
     exit 1
 else
-    echo "Slowdown is detected for TestMe#test."
+    echo "Slowdown is detected for TestMe#callTestmethod."
 fi
