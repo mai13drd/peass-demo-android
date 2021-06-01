@@ -11,8 +11,14 @@ fi
 
 DEMO_PROJECT_NAME=demo-project-android
 
+if [ "$#" -ne 1 ]; then
+	branch="master"
+else
+	branch=$1
+fi
+
 tar -xf "$DEMO_PROJECT_NAME".tar.xz
-git clone https://github.com/DaGeRe/peass.git && \
+git clone -b $branch https://github.com/DaGeRe/peass.git && \
 	cd peass && \
 	./mvnw clean install -DskipTests=true -V
 
@@ -23,7 +29,7 @@ DEPENDENCY_FILE=results/deps_"$DEMO_PROJECT_NAME".json
 CHANGES_DEMO_PROJECT=results/changes_"$DEMO_PROJECT_NAME".json
 PROPERTY_FOLDER=results/properties_"$DEMO_PROJECT_NAME"/
 
-RIGHT_SHA="$(cd "$DEMO_HOME" && git rev-parse HEAD)"
+VERSION="$(cd "$DEMO_HOME" && git rev-parse HEAD)"
 
 # It is assumed that $DEMO_HOME is set correctly and PeASS has been built!
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
@@ -45,7 +51,7 @@ echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
 
 #Check, if $CHANGES_DEMO_PROJECT contains the correct commit-SHA
 TEST_SHA=$(grep -A1 'versionChanges" : {' $CHANGES_DEMO_PROJECT | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
-if [ "$RIGHT_SHA" != "$TEST_SHA" ]
+if [ "$VERSION" != "$TEST_SHA" ]
 then
     echo "commit-SHA is not equal to the SHA in $CHANGES_DEMO_PROJECT"
     cat results/statistics/"$DEMO_PROJECT_NAME".json
@@ -53,10 +59,6 @@ then
 else
     echo "$CHANGES_DEMO_PROJECT contains the correct commit-SHA."
 fi
-
-# If minor updates to the project occur, the version name may change
-VERSION=$(cat $EXECUTION_FILE | grep '"testcases" :' -B 1 | head -n 1 | tr -d "\": {")
-echo "VERSION: $VERSION"
 
 echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
 ./peass searchcause -iterations 5 -warmup 5 -repetitions 1 -vms 4 -version $VERSION \
