@@ -1,4 +1,5 @@
 #!/bin/bash
+DEMO_PROJECT_NAME=demo-project-android
 
 ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
 if [ -z "$ANDROID_SDK_ROOT" ]
@@ -9,8 +10,6 @@ else
     echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
 fi
 
-DEMO_PROJECT_NAME=demo-project-android
-
 if [ "$#" -ne 1 ]; then
 	branch="master"
 else
@@ -20,7 +19,7 @@ fi
 tar -xf "$DEMO_PROJECT_NAME".tar.xz
 git clone -b $branch https://github.com/DaGeRe/peass.git && \
 	cd peass && \
-	./mvnw clean install -DskipTests=true -V
+	./mvnw clean install -DskipTests -V
 
 DEMO_HOME=$(pwd)/../$DEMO_PROJECT_NAME
 DEMO_PROJECT_PEASS=../"$DEMO_PROJECT_NAME"_peass
@@ -35,16 +34,24 @@ VERSION="$(cd "$DEMO_HOME" && git rev-parse HEAD)"
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
 ./peass select -folder $DEMO_HOME
 
+INITIALVERSION="e951fc7fd50acb8bf805bd42d34e3cec492eb0c2"
+INITIAL_SELECTED=$(grep "initialversion" -A 1 $DEPENDENCY_FILE | grep "\"version\"" | tr -d " \"," | awk -F':' '{print $2}')
+if [ "$INITIAL_SELECTED" != "$INITIALVERSION" ]
+then
+	echo "Initialversion should be $INITIALVERSION, but was $INITIAL_SELECTED"
+	exit 1
+fi
+
 if [ ! -f "$EXECUTION_FILE" ]
 then
     echo "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
     echo "$EXECUTION_FILE could not be found!"
     echo "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-	exit 1
+    exit 1
 fi
 
 echo ":::::::::::::::::::::MEASURE::::::::::::::::::::::::::::::::::::::::::"
-./peass measure -executionfile $EXECUTION_FILE -folder $DEMO_HOME -iterations 5 -warmup 5 -repetitions 1 -vms 4
+./peass measure -executionfile $EXECUTION_FILE -folder $DEMO_HOME -vms 5 -iterations 5 -warmup 5 -repetitions 5
 
 echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
 ./peass getchanges -data $DEMO_PROJECT_PEASS -dependencyfile $DEPENDENCY_FILE
@@ -53,7 +60,7 @@ echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
 TEST_SHA=$(grep -A1 'versionChanges" : {' $CHANGES_DEMO_PROJECT | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
 if [ "$VERSION" != "$TEST_SHA" ]
 then
-    echo "commit-SHA is not equal to the SHA in $CHANGES_DEMO_PROJECT"
+    echo "commit-SHA ("$RIGHT_SHA") is not equal to the SHA in $CHANGES_DEMO_PROJECT ("$TEST_SHA")!"
     cat results/statistics/"$DEMO_PROJECT_NAME".json
     exit 1
 else
@@ -61,7 +68,7 @@ else
 fi
 
 echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
-./peass searchcause -iterations 5 -warmup 5 -repetitions 1 -vms 4 -version $VERSION \
+./peass searchcause -vms 3 -iterations 5 -warmup 1 -repetitions 5 -version $VERSION \
     -test app§com.example.android_example.ExampleUnitTest\#test_TestMe \
     -folder $DEMO_HOME \
     -executionfile $EXECUTION_FILE
@@ -82,8 +89,10 @@ else
     echo "Slowdown is detected for TestMe#callTestmethod."
 fi
 
-SOURCE_METHOD_LINE=$(grep "TestMe.callTestmethod_" results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js -A 3 | head -n 3 | grep testMethod)
-if [[ "$SOURCE_METHOD_LINE" != *"testMethod();" ]]
+SOURCE_METHOD_LINE=$(grep "TestMe.callTestmethod_" results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js -A 3 \
+    | head -n -3 \
+    | grep innerMethod)
+if [[ "$SOURCE_METHOD_LINE" != *"innerMethod();" ]]
 then
     echo "Line could not be detected - source reading probably failed."
     echo "Line: "
