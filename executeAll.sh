@@ -34,7 +34,7 @@ VERSION="$(cd "$DEMO_HOME" && git rev-parse HEAD)"
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
 ./peass select -folder $DEMO_HOME
 
-INITIALVERSION="e951fc7fd50acb8bf805bd42d34e3cec492eb0c2"
+INITIALVERSION="e0fc73766582a4905019025d4b85a5bb9281261d"
 INITIAL_SELECTED=$(grep "initialversion" -A 1 $DEPENDENCY_FILE | grep "\"version\"" | tr -d " \"," | awk -F':' '{print $2}')
 if [ "$INITIAL_SELECTED" != "$INITIALVERSION" ]
 then
@@ -69,28 +69,28 @@ fi
 
 echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
 ./peass searchcause -vms 3 -iterations 5 -warmup 1 -repetitions 5 -version $VERSION \
-    -test app§com.example.android_example.ExampleUnitTest\#test_TestMe \
+    -test app§de.dagere.peass.ExampleTest\#test \
     -folder $DEMO_HOME \
     -executionfile $EXECUTION_FILE
 
 echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
 ./peass visualizerca -data $DEMO_PROJECT_PEASS -propertyFolder $PROPERTY_FOLDER
 
-#Check, if a slowdown is detected for TestMe#callTestmethod
-STATE=$(grep -A21 '"call" : "com.example.android_example.TestMe#callTestmethod",' results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js \
+#Check, if a slowdown is detected for Callee#innerMethod
+STATE=$(grep -A21 '"call" : "de.dagere.peass.Callee#innerMethod",' results/$VERSION/app§de.dagere.peass.ExampleTest_test.js \
     | grep '"state" : "SLOWER",' \
     | grep -o 'SLOWER')
 if [ "$STATE" != "SLOWER" ]
 then
-    echo "State for TestMe#callTestmethod in com.example.android_example.ExampleUnitTest_test_TestMe.js has not the expected value SLOWER, but was $STATE!"
-    cat results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js
+    echo "State for Callee#innerMethod in de.dagere.peass.ExampleTest_test.js has not the expected value SLOWER, but was $STATE!"
+    cat results/$VERSION/app§de.dagere.peass.ExampleTest_test.js
     exit 1
 else
-    echo "Slowdown is detected for TestMe#callTestmethod."
+    echo "Slowdown is detected for Callee#innerMethod."
 fi
 
-SOURCE_METHOD_LINE=$(grep "TestMe.callTestmethod_" results/$VERSION/app§com.example.android_example.ExampleUnitTest_test_TestMe.js -A 3 \
-    | head -n -3 \
+SOURCE_METHOD_LINE=$(grep "Callee.method1_" results/$VERSION/app§de.dagere.peass.ExampleTest_test.js -A 3 \
+    | head -n 3 \
     | grep innerMethod)
 if [[ "$SOURCE_METHOD_LINE" != *"innerMethod();" ]]
 then
