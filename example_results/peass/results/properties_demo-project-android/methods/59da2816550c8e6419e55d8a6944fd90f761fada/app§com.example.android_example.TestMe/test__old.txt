@@ -1,8 +1,0 @@
-// will always return 1
-public int test() {
-    int tmp = 2;
-    for (int i = 0; i < 10; i++) {
-        tmp += i ^ i;
-    }
-    return tmp;
-}
