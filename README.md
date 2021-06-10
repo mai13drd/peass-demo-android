@@ -28,7 +28,7 @@ Run `./peass select -folder ../demo-project-android/` (takes ~1 minute). After t
 
 ## Executing the Measurement and Getting the Changes
 
-Run `./peass measure -executionfile results/execute_demo-project-android.json -folder ../peass-demo-android/demo-project-android/  -vms 5 -iterations 5 -warmup 5 -repetitions 5` in order to obtain performance measurements. For real examples, higher execution times are needed, but for the demo case, this is sufficient.
+Run `./peass measure -executionfile results/execute_demo-project-android.json -folder ../demo-project-android/  -vms 5 -iterations 5 -warmup 5 -repetitions 5` in order to obtain performance measurements. For real examples, higher execution times are needed, but for the demo case, this is sufficient.
 
 Afterwards, run `./peass getchanges -data ../demo-project-android_peass/ -dependencyfile results/deps_demo-project-android.json` (takes ~1 second) in order to identify the changes. Now in `results/changes_demo-project-android.json`, all changes are listed. As expected, c4c7ac55f0b519bbe0df2e4f4a9d90e88285bfd0 contains a change in `ExampleTest.test`.
 
