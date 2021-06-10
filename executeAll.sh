@@ -1,4 +1,5 @@
 #!/bin/bash
+
 DEMO_PROJECT_NAME=demo-project-android
 
 ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
@@ -60,7 +61,7 @@ echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
 TEST_SHA=$(grep -A1 'versionChanges" : {' $CHANGES_DEMO_PROJECT | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
 if [ "$VERSION" != "$TEST_SHA" ]
 then
-    echo "commit-SHA ("$RIGHT_SHA") is not equal to the SHA in $CHANGES_DEMO_PROJECT ("$TEST_SHA")!"
+    echo "commit-SHA ("$VERSION") is not equal to the SHA in $CHANGES_DEMO_PROJECT ("$TEST_SHA")!"
     cat results/statistics/"$DEMO_PROJECT_NAME".json
     exit 1
 else
@@ -95,7 +96,6 @@ SOURCE_METHOD_LINE=$(grep "Callee.method1_" results/$VERSION/app§de.dagere.peas
 if [[ "$SOURCE_METHOD_LINE" != *"innerMethod();" ]]
 then
     echo "Line could not be detected - source reading probably failed."
-    echo "Line: "
     echo "SOURCE_METHOD_LINE: $SOURCE_METHOD_LINE"
     exit 1
 else
