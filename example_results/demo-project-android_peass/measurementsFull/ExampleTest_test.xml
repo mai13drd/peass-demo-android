@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<kopemedata>
+ <testcases class="de.dagere.peass.ExampleTest">
+  <testcase name="test">
+   <datacollector name="de.dagere.kopeme.datacollection.TimeDataCollectorNoGC">
+    <chunk chunkStartTime="1623243361227">
+     <result date="1623243414338">
+      <value>5485820.333333333</value>
+      <deviation>93212.55680611564</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>5</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>fab6ef965a0dde0299cb028c1b070881570cad6b</gitversion>
+      </version>
+      <min>5431115.0</min>
+      <max>5593448.0</max>
+     </result>
+     <result date="1623243444796">
+      <value>1.01068074E8</value>
+      <deviation>49585.16222621441</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>5</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>c4c7ac55f0b519bbe0df2e4f4a9d90e88285bfd0</gitversion>
+      </version>
+      <min>1.01011421E8</min>
+      <max>1.01103578E8</max>
+     </result>
+     <result date="1623243474389">
+      <value>5434134.333333333</value>
+      <deviation>18978.198448043833</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>5</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>fab6ef965a0dde0299cb028c1b070881570cad6b</gitversion>
+      </version>
+      <min>5418822.0</min>
+      <max>5455367.0</max>
+     </result>
+     <result date="1623243501618">
+      <value>1.0110265566666667E8</value>
+      <deviation>30244.608053888438</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>5</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>c4c7ac55f0b519bbe0df2e4f4a9d90e88285bfd0</gitversion>
+      </version>
+      <min>1.01067927E8</min>
+      <max>1.0112321E8</max>
+     </result>
+     <result date="1623243529702">
+      <value>5394647.333333333</value>
+      <deviation>37573.74418837352</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>5</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>fab6ef965a0dde0299cb028c1b070881570cad6b</gitversion>
+      </version>
+      <min>5372532.0</min>
+      <max>5438031.0</max>
+     </result>
+     <result date="1623243566354">
+      <value>1.0069969733333333E8</value>
+      <deviation>61673.33291085649</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>5</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>c4c7ac55f0b519bbe0df2e4f4a9d90e88285bfd0</gitversion>
+      </version>
+      <min>1.00631402E8</min>
+      <max>1.00751321E8</max>
+     </result>
+     <result date="1623243594526">
+      <value>5342832.666666667</value>
+      <deviation>11656.53766490433</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>5</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>fab6ef965a0dde0299cb028c1b070881570cad6b</gitversion>
+      </version>
+      <min>5332593.0</min>
+      <max>5355518.0</max>
+     </result>
+     <result date="1623243619336">
+      <value>1.01001511E8</value>
+      <deviation>65119.37834469859</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>5</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>c4c7ac55f0b519bbe0df2e4f4a9d90e88285bfd0</gitversion>
+      </version>
+      <min>1.00927291E8</min>
+      <max>1.01049065E8</max>
+     </result>
+     <result date="1623243649132">
+      <value>5363915.333333333</value>
+      <deviation>2376.910038965155</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>5</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>fab6ef965a0dde0299cb028c1b070881570cad6b</gitversion>
+      </version>
+      <min>5362150.0</min>
+      <max>5366618.0</max>
+     </result>
+     <result date="1623243672510">
+      <value>1.0074932833333333E8</value>
+      <deviation>123614.72354591638</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>5</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>c4c7ac55f0b519bbe0df2e4f4a9d90e88285bfd0</gitversion>
+      </version>
+      <min>1.00644515E8</min>
+      <max>1.00885647E8</max>
+     </result>
+    </chunk>
+    <chunk chunkStartTime="1623243796348">
+     <result date="1623243818059">
+      <value>7554749.0</value>
+      <deviation>861667.4472109295</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>1</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>fab6ef965a0dde0299cb028c1b070881570cad6b</gitversion>
+      </version>
+      <min>7015612.0</min>
+      <max>8548520.0</max>
+     </result>
+     <result date="1623243844135">
+      <value>1.0357964866666667E8</value>
+      <deviation>924687.6569438641</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>1</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>c4c7ac55f0b519bbe0df2e4f4a9d90e88285bfd0</gitversion>
+      </version>
+      <min>1.02988957E8</min>
+      <max>1.04645293E8</max>
+     </result>
+     <result date="1623243873195">
+      <value>6843300.0</value>
+      <deviation>342617.67252288666</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>1</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>fab6ef965a0dde0299cb028c1b070881570cad6b</gitversion>
+      </version>
+      <min>6631855.0</min>
+      <max>7238600.0</max>
+     </result>
+     <result date="1623243904440">
+      <value>1.0343725066666667E8</value>
+      <deviation>961865.0554923664</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>1</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>c4c7ac55f0b519bbe0df2e4f4a9d90e88285bfd0</gitversion>
+      </version>
+      <min>1.02591436E8</min>
+      <max>1.04483562E8</max>
+     </result>
+     <result date="1623243941701">
+      <value>6247682.0</value>
+      <deviation>494545.1446652773</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>1</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>fab6ef965a0dde0299cb028c1b070881570cad6b</gitversion>
+      </version>
+      <min>5856478.0</min>
+      <max>6803554.0</max>
+     </result>
+     <result date="1623243967473">
+      <value>1.0355935966666667E8</value>
+      <deviation>1216700.7122732908</deviation>
+      <warmupExecutions>0</warmupExecutions>
+      <executionTimes>0</executionTimes>
+      <warmup>1</warmup>
+      <iterations>3</iterations>
+      <repetitions>5</repetitions>
+      <version>
+       <gitversion>c4c7ac55f0b519bbe0df2e4f4a9d90e88285bfd0</gitversion>
+      </version>
+      <min>1.0285289E8</min>
+      <max>1.04964277E8</max>
+     </result>
+    </chunk>
+   </datacollector>
+  </testcase>
+ </testcases>
+</kopemedata>
